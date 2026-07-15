@@ -48,12 +48,9 @@ gemma_processor = AutoProcessor.from_pretrained(gemma_model_id)
 # ==========================================
 # 2. TELEGRAM ALERT SYSTEM
 # ==========================================
-def send_telegram_alert(video_path, category, threat_level, description):
+def send_telegram_alert(video_path, category, description):
     """Sends the stitched anomaly video and Gemma-4's forensic JSON analysis to Telegram."""
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
-    
-    # Select threat color badge dynamically based on model output
-    threat_emoji = "🔴" if threat_level.lower() == "high" else ("🟠" if threat_level.lower() == "medium" else "🟡")
     
     # Enhanced, highly scannable design format
     caption_text = (
@@ -61,7 +58,6 @@ def send_telegram_alert(video_path, category, threat_level, description):
         f"<code>──────────────────────────────</code>\n\n"
         f"🏷️ <b>INCIDENT INFORMATION</b>\n"
         f"• <b>Category:</b> <code>{category}</code>\n"
-        f"• <b>Threat Level:</b> {threat_emoji} <b>{threat_level.upper()}</b>\n\n"
         f"🔬 <b>FORENSIC ANALYSIS REPORT</b>\n"
         f"<blockquote>{description}</blockquote>\n"
         f"<code>──────────────────────────────</code>\n"
@@ -289,7 +285,6 @@ if __name__ == "__main__":
             send_telegram_alert(
                 video_path=stitched_video_path,
                 category=alert_data.get("anomaly_category", "Unusual Activity"),
-                threat_level=alert_data.get("threat_level", "Medium"),
                 description=alert_data.get("evidence_description", "No description provided.")
             )
         except json.JSONDecodeError:
@@ -297,9 +292,8 @@ if __name__ == "__main__":
             send_telegram_alert(
                 video_path=stitched_video_path,
                 category="Anomalous Activity",
-                threat_level="High",
-                description=response_text[:400]  # Safe slice bounds
+                description=response_text[:400]  
             )
-            
+
     else:
         print("\nSkipping LLM analysis and Telegram alert because no anomalous segments were detected.")
