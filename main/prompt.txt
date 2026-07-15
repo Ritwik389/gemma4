@@ -22,7 +22,6 @@ Use these definitions to break ties between visually similar classes:
 - RoadAccidents: a vehicle collides with another vehicle, object, or pedestrian.
 - Robbery: a person takes property from another person's immediate possession using force, a weapon, or explicit threat/confrontation.
 - Shooting: a firearm is drawn and/or discharged.
-- Shoplifting: a person conceals or walks out with retail store merchandise without paying, without confronting anyone.
 - Stealing: a person takes an object/property (not in a retail setting, no confrontation) — e.g. taking a bag, bike, or package left unattended.
 - Vandalism: a person deliberately damages, defaces, or destroys property (breaking, spray-painting, smashing) without stealing anything.
 
