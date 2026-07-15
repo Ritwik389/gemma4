@@ -3,11 +3,9 @@ from transformers import AutoModelForVideoClassification, AutoProcessor
 import cv2
 import numpy as np
 
-# Load model and processor
 model = AutoModelForVideoClassification.from_pretrained("Nikeytas/videomae-crime-detector-maxdata-v1")
 processor = AutoProcessor.from_pretrained("Nikeytas/videomae-crime-detector-maxdata-v1")
 
-# Process video
 def classify_video(video_path, num_frames=16):
     # Extract frames
     cap = cv2.VideoCapture(video_path)
